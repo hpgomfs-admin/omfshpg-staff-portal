@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!doctype html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;OMFS Staff Portal&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>:root{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--bg:#f6f7fb; --card:#ffffff; --text:#111827; --muted:#6b7280;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--primary:#1f4fd8; --primary2:#163db3; --border:#e5e7eb;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>*{box-sizing:border-box}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:var(--bg); color:var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>header{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:22px 18px 14px; background:linear-gradient(180deg,#ffffff,rgba(255,255,255,.6));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-bottom:1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position:sticky; top:0; backdrop-filter:saturate(180%) blur(8px);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.wrap{max-width:1100px; margin:0 auto;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1{margin:0 0 6px; font-size:22px; letter-spacing:.2px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.sub{margin:0; color:var(--muted); font-size:13px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>input[type="search"]{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex:1; min-width:220px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:10px 12px; border:1px solid var(--border); border-radius:12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>outline:none; font-size:14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>select{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:10px 12px; border:1px solid var(--border); border-radius:12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size:14px; background:#fff;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>main{padding:18px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section-title{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin:18px 0 10px; font-size:13px; color:var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-transform:uppercase; letter-spacing:.12em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.grid{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:grid; grid-template-columns:repeat(3,minmax(0,1fr));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap:12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width:900px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr));} }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width:560px){ .grid{grid-template-columns:1fr;} }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:var(--card); border:1px solid var(--border); border-radius:16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:14px; box-shadow:0 2px 10px rgba(17,24,39,.04);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:flex; flex-direction:column; gap:10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.topline{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.name{font-weight:700; font-size:15px; margin:0}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.badge{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size:11px; color:#fff; background:var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:4px 8px; border-radius:999px; white-space:nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.desc{margin:0; color:var(--muted); font-size:13px; line-height:1.35}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:inline-block; text-align:center; text-decoration:none; font-weight:700;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:var(--primary); color:#fff; padding:10px 12px; border-radius:12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn:hover{background:var(--primary2)}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.meta{font-size:12px; color:var(--muted)}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>footer{padding:16px 18px 26px; color:var(--muted); font-size:12px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hidden{display:none !important}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;header&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h1&gt;OMFS Staff Portal&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;p class="sub"&gt;Quick links to clinic web apps. Use Search to find any tool instantly.&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="controls"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input id="q" type="search" placeholder="Search e.g. OT, booking, inventory, form..." /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="cat"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="all"&gt;All categories&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;main class="wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="pinnedBlock"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="section-title"&gt;Pinned&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="grid" id="pinned"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title"&gt;All Apps&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="grid" id="apps"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;footer class="wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>Maintained by OMFS admin. Last updated: &lt;span id="updated"&gt;&lt;/span&gt;.</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// 1) EDIT YOUR LINKS HERE</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const APPS = [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>name: "OT Session Registry (HPG)",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>url: "https://YOUR_WEBAPP_URL_HERE",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>category: "OT / Theatre",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>desc: "Create sessions, add cases, finalise, print PDF list.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pinned: true,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tag: "Most used"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>name: "Appointment Booking System",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>url: "https://YOUR_WEBAPP_URL_HERE",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>category: "Clinic Ops",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>desc: "Room booking with staggered slots and lunch breaks.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pinned: true,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tag: "Daily"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>name: "Inventory / Stock Request",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>url: "https://YOUR_WEBAPP_URL_HERE",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>category: "Admin",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>desc: "Track items, requests, and restock status.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pinned: false</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>name: "Training / Quiz Portal",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>url: "https://YOUR_WEBAPP_URL_HERE",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>category: "Education",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>desc: "OMFS MCQ, timer, scoring, and question bank.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pinned: false</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Add more objects here...</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// 2) RENDER LOGIC (no need to edit)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const $apps = document.getElementById("apps");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const $pinned = document.getElementById("pinned");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const $q = document.getElementById("q");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const $cat = document.getElementById("cat");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const $pinnedBlock = document.getElementById("pinnedBlock");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function uniq(arr){ return [...new Set(arr)].sort(); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function card(app){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const el = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>el.className = "card";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>el.dataset.name = app.name.toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>el.dataset.desc = (app.desc || "").toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>el.dataset.category = app.category;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>el.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="topline"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="name"&gt;${app.name}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>${app.tag ? `&lt;span class="badge"&gt;${app.tag}&lt;/span&gt;` : ``}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="desc"&gt;${app.desc || ""}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a class="btn" href="${app.url}" target="_blank" rel="noopener"&gt;Open&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="meta"&gt;${app.category || "General"}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return el;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function populateCategories(){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const cats = uniq(APPS.map(a =&gt; a.category || "General"));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cats.forEach(c =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const opt = document.createElement("option");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>opt.value = c; opt.textContent = c;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>$cat.appendChild(opt);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function render(){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>$apps.innerHTML = "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>$pinned.innerHTML = "";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const query = ($q.value || "").trim().toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const cat = $cat.value;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>let pinnedCount = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>APPS.forEach(app =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const matchesText =</p>
+<p class="p1"><span class="Apple-converted-space">          </span>!query ||</p>
+<p class="p1"><span class="Apple-converted-space">          </span>app.name.toLowerCase().includes(query) ||</p>
+<p class="p1"><span class="Apple-converted-space">          </span>(app.desc || "").toLowerCase().includes(query) ||</p>
+<p class="p1"><span class="Apple-converted-space">          </span>(app.category || "").toLowerCase().includes(query);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const matchesCat = (cat === "all") || (app.category === cat);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!matchesText || !matchesCat) return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const el = card(app);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (app.pinned){</p>
+<p class="p1"><span class="Apple-converted-space">          </span>$pinned.appendChild(el);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>pinnedCount++;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>$apps.appendChild(el);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>$pinnedBlock.classList.toggle("hidden", pinnedCount === 0);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>populateCategories();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>$q.addEventListener("input", render);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>$cat.addEventListener("change", render);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("updated").textContent =</p>
+<p class="p1"><span class="Apple-converted-space">      </span>new Date().toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit" });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
