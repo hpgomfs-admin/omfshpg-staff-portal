@@ -1,229 +1,722 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!doctype html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OMFS Staff Portal</title>
+
+  <style>
+    :root{
+      --bg0:#f2f6ff;
+      --bg1:#f7f9ff;
+
+      --card: rgba(255,255,255,.80);
+      --card2: rgba(255,255,255,.72);
+
+      --text:#0b1220;
+      --muted:#5b667a;
+      --muted2:#76829a;
+
+      --border: rgba(15, 23, 42, .10);
+      --border2: rgba(255,255,255,.55);
+
+      --primary:#1f4fd8;
+      --primaryDark:#163db3;
+
+      --shadow1: 0 10px 30px rgba(2,6,23,.08);
+      --shadow2: 0 14px 40px rgba(2,6,23,.10);
+      --shadow3: 0 22px 70px rgba(2,6,23,.14);
+
+      --radiusXL: 28px;
+      --radius: 18px;
+      --radiusSm: 14px;
+
+      --glass: rgba(255,255,255,.72);
+      --glass2: rgba(255,255,255,.56);
+      --blur: 16px;
+
+      --ring: rgba(31,79,216,.18);
+      --ring2: rgba(139,92,246,.16);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+
+      background:
+        radial-gradient(1200px 520px at 16% -10%, rgba(31,79,216,.22), transparent 58%),
+        radial-gradient(900px 520px at 92% 0%, rgba(139,92,246,.18), transparent 60%),
+        radial-gradient(900px 520px at 60% 112%, rgba(34,197,94,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x: hidden;
+    }
+
+    /* subtle premium noise */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,.20), transparent 45%),
+        radial-gradient(circle at 80% 0%, rgba(255,255,255,.12), transparent 50%),
+        radial-gradient(circle at 40% 120%, rgba(255,255,255,.10), transparent 55%);
+      opacity:.45;
+      mix-blend-mode: overlay;
+    }
+
+    .wrap{
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Premium Header */
+    .hero{
+      position: relative;
+      border-radius: var(--radiusXL);
+      padding: 18px 18px 16px 18px;
+      text-align: center;
+      overflow: hidden;
+      box-shadow: var(--shadow2);
+      border: 1px solid rgba(255,255,255,.35);
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(255,255,255,.22), transparent 60%),
+        linear-gradient(135deg, #1f4fd8, #163db3);
+      color: #fff;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(760px 200px at 10% -10%, rgba(255,255,255,.26), transparent 58%),
+        radial-gradient(760px 220px at 90% 0%, rgba(255,255,255,.14), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+
+    .hero h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:.2px;
+      position:relative;
+      z-index:1;
+    }
+    .hero .sub{
+      margin-top: 6px;
+      font-size: 13px;
+      opacity: .95;
+      line-height: 1.35;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero .divider{
+      width: 120px;
+      height: 1px;
+      margin: 10px auto 0 auto;
+      background: rgba(255,255,255,.32);
+      position:relative;
+      z-index:1;
+      border-radius: 999px;
+    }
+
+    /* Toolbar */
+    .toolbar{
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .panel{
+      background: var(--glass);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid rgba(255,255,255,.55);
+      box-shadow: var(--shadow1);
+      border-radius: var(--radius);
+    }
+
+    .search{
+      padding: 10px 12px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      min-height: 46px;
+    }
+
+    .searchIcon{
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(31,79,216,.10);
+      border: 1px solid rgba(31,79,216,.18);
+      flex: 0 0 auto;
+    }
+
+    .search input{
+      border:none;
+      outline:none;
+      width:100%;
+      font-size:14px;
+      background: transparent;
+      color: var(--text);
+    }
+    .search input::placeholder{ color: rgba(91,102,122,.75); }
+
+    .hint{
+      font-size:12px;
+      color: var(--muted2);
+      white-space: nowrap;
+      padding-left: 10px;
+      border-left: 1px solid rgba(15,23,42,.10);
+    }
+
+    /* Top favourites button */
+    .favBtn{
+      padding: 10px 12px;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 13px;
+      min-height: 46px;
+    }
+    .favBtn .star{ font-size: 16px; line-height: 1; }
+    .favBtn .pill{
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.55);
+      color: var(--muted);
+      margin-left: 4px;
+    }
+
+    /* Chips */
+    .chips{
+      margin-top: 10px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+    }
+    .chip{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.65);
+      color: rgba(15,23,42,.86);
+      font-size: 13px;
+      user-select: none;
+      white-space: nowrap;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .chip.active{
+      background: rgba(31,79,216,.16);
+      border-color: rgba(31,79,216,.28);
+      color: rgba(17,41,122,.98);
+      box-shadow: 0 10px 22px rgba(31,79,216,.14);
+    }
+
+    /* Grid */
+    .grid{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 720px){
+      .toolbar{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 420px){ .grid{ grid-template-columns: 1fr; } }
+
+    /* App Card */
+    .app{
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      padding: 14px 14px 12px 14px;
+      min-height: 132px;
+
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.58);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow1);
+
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      transform: translateZ(0);
+    }
+
+    .app::before{
+      content:"";
+      position:absolute;
+      left:0; top:0; right:0;
+      height: 4px;
+      background: var(--accent, var(--primary));
+      opacity: .96;
+    }
+    .app::after{
+      content:"";
+      position:absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 999px;
+      right: -130px;
+      bottom: -170px;
+      background: radial-gradient(circle at 30% 30%,
+        color-mix(in srgb, var(--accent) 18%, transparent),
+        transparent 60%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+
+    .app .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      position:relative;
+      z-index:1;
+    }
+
+    .app h3{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.2px;
+      line-height: 1.2;
+    }
+    .app p{
+      margin:6px 0 0 0;
+      font-size: 12px;
+      color: rgba(91,102,122,.92);
+      line-height: 1.35;
+    }
+
+    .badge{
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, rgba(15,23,42,.08));
+      background: color-mix(in srgb, var(--accent) 12%, rgba(255,255,255,.78));
+      color: color-mix(in srgb, var(--accent) 78%, #0b1220);
+      white-space: nowrap;
+    }
+
+    .openRow{
+      margin-top: auto;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 8px;
+      position:relative;
+      z-index:1;
+    }
+
+    .openPill{
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 12px;
+      border: 1px solid color-mix(in srgb, var(--accent) 28%, rgba(15,23,42,.08));
+      background: color-mix(in srgb, var(--accent) 10%, rgba(255,255,255,.82));
+      color: color-mix(in srgb, var(--accent) 78%, #0b1220);
+      user-select: none;
+    }
+
+    .rightTools{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+    }
+
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent, var(--primary));
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 16%, transparent);
+      flex: 0 0 auto;
+    }
+
+    .favMini{
+      font-size: 14px;
+      line-height: 1;
+      padding: 6px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 10px 20px rgba(2,6,23,.10);
+      color: rgba(15,23,42,.82);
+      user-select: none;
+    }
+    .favMini.isFav{
+      border-color: color-mix(in srgb, #f59e0b 55%, rgba(15,23,42,.10));
+      background: color-mix(in srgb, #f59e0b 14%, rgba(255,255,255,.82));
+      color: color-mix(in srgb, #f59e0b 70%, #0b1220);
+    }
+
+    /* Premium Interaction */
+    .btn{
+      cursor: pointer;
+      position: relative;
+      z-index: 5;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease,
+        background-color 0.18s ease,
+        border-color 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow3);
+      filter: brightness(1.05);
+    }
+
+    .btn:active{
+      transform: translateY(0);
+      box-shadow: 0 10px 26px rgba(2,6,23,.16) inset;
+      filter: brightness(1.02);
+    }
+
+    .btn:focus-visible{
+      outline: none;
+      box-shadow:
+        0 0 0 4px var(--ring),
+        0 0 0 10px var(--ring2),
+        var(--shadow2);
+    }
+
+    @media (hover: none){
+      .btn:hover{ transform:none; box-shadow: var(--shadow1); }
+      .btn:active{ transform: scale(0.985); }
+    }
+
+    /* remove default button chrome without killing .panel look */
+    button{
+      font: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
   </style>
 </head>
+
 <body>
-<p class="p1">&lt;!doctype html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;OMFS Staff Portal&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg:#f6f7fb; --card:#ffffff; --text:#111827; --muted:#6b7280;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--primary:#1f4fd8; --primary2:#163db3; --border:#e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>*{box-sizing:border-box}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:var(--bg); color:var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>header{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:22px 18px 14px; background:linear-gradient(180deg,#ffffff,rgba(255,255,255,.6));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom:1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position:sticky; top:0; backdrop-filter:saturate(180%) blur(8px);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.wrap{max-width:1100px; margin:0 auto;}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1{margin:0 0 6px; font-size:22px; letter-spacing:.2px}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.sub{margin:0; color:var(--muted); font-size:13px}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>input[type="search"]{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex:1; min-width:220px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:10px 12px; border:1px solid var(--border); border-radius:12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>outline:none; font-size:14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>select{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:10px 12px; border:1px solid var(--border); border-radius:12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size:14px; background:#fff;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>main{padding:18px}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.section-title{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin:18px 0 10px; font-size:13px; color:var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform:uppercase; letter-spacing:.12em;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.grid{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:grid; grid-template-columns:repeat(3,minmax(0,1fr));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap:12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width:900px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr));} }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width:560px){ .grid{grid-template-columns:1fr;} }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:var(--card); border:1px solid var(--border); border-radius:16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:14px; box-shadow:0 2px 10px rgba(17,24,39,.04);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:flex; flex-direction:column; gap:10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.topline{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.name{font-weight:700; font-size:15px; margin:0}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size:11px; color:#fff; background:var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:4px 8px; border-radius:999px; white-space:nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.desc{margin:0; color:var(--muted); font-size:13px; line-height:1.35}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:inline-block; text-align:center; text-decoration:none; font-weight:700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:var(--primary); color:#fff; padding:10px 12px; border-radius:12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn:hover{background:var(--primary2)}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.meta{font-size:12px; color:var(--muted)}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>footer{padding:16px 18px 26px; color:var(--muted); font-size:12px}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hidden{display:none !important}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="wrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h1&gt;OMFS Staff Portal&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p class="sub"&gt;Quick links to clinic web apps. Use Search to find any tool instantly.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="controls"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input id="q" type="search" placeholder="Search e.g. OT, booking, inventory, form..." /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="cat"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="all"&gt;All categories&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;main class="wrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="pinnedBlock"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="section-title"&gt;Pinned&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="grid" id="pinned"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title"&gt;All Apps&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="grid" id="apps"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;footer class="wrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>Maintained by OMFS admin. Last updated: &lt;span id="updated"&gt;&lt;/span&gt;.</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 1) EDIT YOUR LINKS HERE</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const APPS = [</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>name: "OT Session Registry (HPG)",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>url: "https://YOUR_WEBAPP_URL_HERE",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>category: "OT / Theatre",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>desc: "Create sessions, add cases, finalise, print PDF list.",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>pinned: true,</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tag: "Most used"</p>
-<p class="p1"><span class="Apple-converted-space">      </span>},</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>name: "Appointment Booking System",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>url: "https://YOUR_WEBAPP_URL_HERE",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>category: "Clinic Ops",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>desc: "Room booking with staggered slots and lunch breaks.",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>pinned: true,</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tag: "Daily"</p>
-<p class="p1"><span class="Apple-converted-space">      </span>},</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>name: "Inventory / Stock Request",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>url: "https://YOUR_WEBAPP_URL_HERE",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>category: "Admin",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>desc: "Track items, requests, and restock status.",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>pinned: false</p>
-<p class="p1"><span class="Apple-converted-space">      </span>},</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>name: "Training / Quiz Portal",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>url: "https://YOUR_WEBAPP_URL_HERE",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>category: "Education",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>desc: "OMFS MCQ, timer, scoring, and question bank.",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>pinned: false</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Add more objects here...</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 2) RENDER LOGIC (no need to edit)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const $apps = document.getElementById("apps");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const $pinned = document.getElementById("pinned");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const $q = document.getElementById("q");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const $cat = document.getElementById("cat");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const $pinnedBlock = document.getElementById("pinnedBlock");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function uniq(arr){ return [...new Set(arr)].sort(); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function card(app){</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const el = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>el.className = "card";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>el.dataset.name = app.name.toLowerCase();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>el.dataset.desc = (app.desc || "").toLowerCase();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>el.dataset.category = app.category;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>el.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="topline"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="name"&gt;${app.name}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>${app.tag ? `&lt;span class="badge"&gt;${app.tag}&lt;/span&gt;` : ``}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="desc"&gt;${app.desc || ""}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;a class="btn" href="${app.url}" target="_blank" rel="noopener"&gt;Open&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="meta"&gt;${app.category || "General"}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return el;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function populateCategories(){</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const cats = uniq(APPS.map(a =&gt; a.category || "General"));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cats.forEach(c =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const opt = document.createElement("option");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>opt.value = c; opt.textContent = c;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>$cat.appendChild(opt);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function render(){</p>
-<p class="p1"><span class="Apple-converted-space">      </span>$apps.innerHTML = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>$pinned.innerHTML = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const query = ($q.value || "").trim().toLowerCase();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const cat = $cat.value;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>let pinnedCount = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>APPS.forEach(app =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const matchesText =</p>
-<p class="p1"><span class="Apple-converted-space">          </span>!query ||</p>
-<p class="p1"><span class="Apple-converted-space">          </span>app.name.toLowerCase().includes(query) ||</p>
-<p class="p1"><span class="Apple-converted-space">          </span>(app.desc || "").toLowerCase().includes(query) ||</p>
-<p class="p1"><span class="Apple-converted-space">          </span>(app.category || "").toLowerCase().includes(query);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const matchesCat = (cat === "all") || (app.category === cat);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (!matchesText || !matchesCat) return;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const el = card(app);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (app.pinned){</p>
-<p class="p1"><span class="Apple-converted-space">          </span>$pinned.appendChild(el);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>pinnedCount++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>$apps.appendChild(el);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>$pinnedBlock.classList.toggle("hidden", pinnedCount === 0);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>populateCategories();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>render();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>$q.addEventListener("input", render);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>$cat.addEventListener("change", render);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("updated").textContent =</p>
-<p class="p1"><span class="Apple-converted-space">      </span>new Date().toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit" });</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Web App Portal</h1>
+      <div class="sub">
+        Jabatan Bedah Mulut &amp; Maksilofasial<br>
+        Hospital Pasir Gudang
+      </div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="panel search">
+        <div class="searchIcon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M10.5 18.5a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" stroke="rgba(31,79,216,.9)" stroke-width="2"/>
+            <path d="M16.5 16.5 21 21" stroke="rgba(31,79,216,.9)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <input id="q" type="text" placeholder="Search apps..." autocomplete="off" />
+        <div class="hint" id="countHint">0 apps</div>
+      </div>
+
+      <button class="panel favBtn btn" id="favToggle" type="button" aria-pressed="false" title="Toggle favourites">
+        <span class="star">★</span>
+        <span>Favourites</span>
+        <span class="pill" id="favCount">0</span>
+      </button>
+    </div>
+
+    <div class="panel chips" id="chips"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <script>
+    /************************************************************
+     * YOUR APPS
+     ************************************************************/
+    const APPS = [
+      {
+        id: "gabookings",
+        name: "GABOOKINGS",
+        desc: "GA booking slots calendar & session locking",
+        url: "https://ot-oasis.lovable.app",
+        category: "Booking",
+        color: "#1f4fd8",
+        tag: "Core"
+      },
+      {
+        id: "storunit",
+        name: "Stor Unit OMFS HPG",
+        desc: "add, deduct like KAD PETAK Stor",
+        url: "https://script.google.com/macros/s/AKfycbwWj0qauHckXTNt3f90wjym-Jr3q5c07uSXibL1GKaRfneWvDTZ7Vde6fnXApxhPSK0pQ/exec",
+        category: "stor",
+        color: "#0ea5e9",
+        tag: "STOR"
+      },
+      {
+        id: "appointmentbook",
+        name: "Appointment Book OMFS HPG",
+        desc: "Room schedules & appointment management",
+        url: "https://bit.ly/4b720BK",
+        category: "Booking",
+        color: "#0f766e",
+        tag: "Clinic"
+      },
+
+      /* NEW APP */
+      {
+        id: "cutirehatplanner",
+        name: "Cuti Rehat Planner",
+        desc: "Annual leave calendar & activity tracking",
+        url: "https://grace-leave-planner.lovable.app",
+        category: "Planner",
+        color: "#10b981",
+        tag: "Leave"
+      },
+
+      {
+        id: "biopsy",
+        name: "Biopsy Registry",
+        desc: "Biopsy registration, histopathology tracking & reporting",
+        url: "https://script.google.com/macros/s/AKfycbxf5ZFvP4Eg2uZ-POoci56NolE9Kst6TGuDDShvRpOS1z4sZtdkRC1r-iScQdd3YX52Sg/exec",
+        category: "Registry",
+        color: "#8b5cf6",
+        tag: "Registry"
+      },
+      {
+        id: "preposttest",
+        name: "Pre/Post Test",
+        desc: "Assessment of competency for NDOPs",
+        url: "PASTE_TRAINING_URL_HERE",
+        category: "Training",
+        color: "#f59e0b",
+        tag: "NDOP"
+      },
+      {
+        id: "oncallcase",
+        name: "Oncall Case Registry",
+        desc: "Data entry for oncall cases",
+        url: "https://script.google.com/macros/s/AKfycbxDNrqAouOm7624Zyar1g-KoentXDzyue69YJpolgkWG-PyeXKTmGRYycKbzTO-9BU7/exec",
+        category: "Registry",
+        color: "#ad1457",
+        tag: "Oncall"
+      },
+      {
+        id: "kpiomfs",
+        name: "National OMFS KPI",
+        desc: "Data collection for KPI",
+        url: "https://docs.google.com/spreadsheets/d/1-tjeF5kxHxDJRWCUWKIgk0nJnY4UVctAjeMTOwYebTo/edit?usp=sharing",
+        category: "KPI",
+        color: "#6d28d9",
+        tag: "KPIomfs"
+      }
+    ];
+
+    /************************************************************
+     * FAVOURITES (localStorage)
+     ************************************************************/
+    const LS_KEY = "OMFS_PORTAL_FAVS_V1";
+
+    function loadFavs(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        const arr = raw ? JSON.parse(raw) : [];
+        return new Set(Array.isArray(arr) ? arr : []);
+      }catch(e){
+        return new Set();
+      }
+    }
+    function saveFavs(set){
+      try{ localStorage.setItem(LS_KEY, JSON.stringify([...set])); }catch(e){}
+    }
+
+    const favSet = loadFavs();
+
+    const q = document.getElementById('q');
+    const grid = document.getElementById('grid');
+    const chips = document.getElementById('chips');
+    const countHint = document.getElementById('countHint');
+    const favToggle = document.getElementById('favToggle');
+    const favCount = document.getElementById('favCount');
+
+    let activeFilter = "All";
+    let favouritesOnly = false;
+
+    function uniq(arr){ return [...new Set(arr)].filter(Boolean); }
+
+    function escapeHtml(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function buildChips(){
+      const cats = uniq(APPS.map(a => a.category)).sort((a,b)=>a.localeCompare(b));
+      const items = ["All", ...cats];
+
+      chips.innerHTML = items.map((c, idx) => {
+        const active = (idx === 0) ? "active" : "";
+        return `<div class="chip btn ${active}" data-filter="${escapeHtml(c)}">${escapeHtml(c)}</div>`;
+      }).join("");
+    }
+
+    function buildGrid(){
+      grid.innerHTML = APPS.map(app => {
+        const accent = app.color || "#1f4fd8";
+        const badge = app.tag || app.category || "App";
+        const isFav = favSet.has(app.id);
+
+        return `
+          <div class="app btn"
+               data-id="${escapeHtml(app.id)}"
+               data-name="${escapeHtml(app.name)}"
+               data-category="${escapeHtml(app.category || "")}"
+               data-url="${escapeHtml(app.url || "")}"
+               style="--accent:${escapeHtml(accent)}">
+
+            <div class="top">
+              <div>
+                <h3>${escapeHtml(app.name || "")}</h3>
+                <p>${escapeHtml(app.desc || "")}</p>
+              </div>
+              <span class="badge">${escapeHtml(badge)}</span>
+            </div>
+
+            <div class="openRow">
+              <span class="openPill">Open</span>
+              <span class="rightTools">
+                <span class="dot" aria-hidden="true"></span>
+
+                <span class="favMini btn ${isFav ? "isFav" : ""}"
+                      data-fav="1"
+                      title="Toggle favourite">
+                  ${isFav ? "★" : "☆"}
+                </span>
+              </span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function apply(){
+      const term = (q.value || "").trim().toLowerCase();
+      const cards = [...grid.querySelectorAll('.app')];
+
+      let visible = 0;
+
+      for(const card of cards){
+        const name = (card.dataset.name || "").toLowerCase();
+        const cat  = (card.dataset.category || "");
+        const id   = (card.dataset.id || "");
+        const isFav = favSet.has(id);
+
+        const matchTerm = !term || name.includes(term);
+        const matchFilter = activeFilter === "All" || cat === activeFilter;
+        const matchFav = !favouritesOnly || isFav;
+
+        const show = matchTerm && matchFilter && matchFav;
+        card.style.display = show ? "" : "none";
+        if(show) visible++;
+      }
+
+      countHint.textContent = `${visible} apps`;
+      favCount.textContent = `${favSet.size}`;
+    }
+
+    chips.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if(!chip) return;
+      activeFilter = chip.dataset.filter || "All";
+
+      [...chips.querySelectorAll('.chip')].forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      apply();
+    });
+
+    favToggle.addEventListener('click', () => {
+      favouritesOnly = !favouritesOnly;
+      favToggle.setAttribute('aria-pressed', String(favouritesOnly));
+      favToggle.querySelector('.pill').style.background = favouritesOnly ? "rgba(31,79,216,.16)" : "rgba(255,255,255,.55)";
+      apply();
+    });
+
+    q.addEventListener('input', apply);
+
+    grid.addEventListener('click', (e) => {
+      const favBtn = e.target.closest('[data-fav="1"]');
+      if(favBtn){
+        e.preventDefault();
+        e.stopPropagation();
+
+        const card = e.target.closest('.app');
+        if(!card) return;
+
+        const id = card.dataset.id;
+        if(!id) return;
+
+        if(favSet.has(id)) favSet.delete(id);
+        else favSet.add(id);
+
+        saveFavs(favSet);
+
+        const nowFav = favSet.has(id);
+        favBtn.textContent = nowFav ? "★" : "☆";
+        favBtn.classList.toggle("isFav", nowFav);
+
+        apply();
+        return;
+      }
+
+      const card = e.target.closest('.app');
+      if(!card) return;
+
+      const url = card.dataset.url || "";
+      if(!url) return;
+
+      if(url.startsWith("PASTE_")){
+        alert("Please paste the correct URL for: " + (card.dataset.name || "this app"));
+        return;
+      }
+
+      window.open(url, '_blank', 'noopener');
+    });
+
+    buildChips();
+    buildGrid();
+    apply();
+  </script>
 </body>
 </html>
