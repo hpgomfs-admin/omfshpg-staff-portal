@@ -1544,7 +1544,7 @@
             function renderHome() {
                 const fav = sortedApps().filter(a => state.favs.has(a.id)).slice(0, 6);
                 const recent = state.recent.map(getApp).filter(Boolean).slice(0, 5);
-                return hero('Your clinical workspace, simplified', 'Favourites and recently opened applications are always one click away.', 'Hospital Pasir Gudang') + section('Favourites', 'Your pinned applications', fav, 'View all', 'favourites', 'No favourites yet') + section('Recently Used', 'Quickly resume where you left off', recent, 'View history', 'recent', 'No recently used apps') + `<div class="summary-pills"><span class="summary-pill">${state.apps.length} applications available</span><span class="summary-pill">${categories().length} categories</span><button class="text-link" data-view="all">Browse full directory →</button></div>`;
+                return hero('Your clinical workspace, simplified', 'Favourites and recently opened applications are always one click away.', 'JABATAN BEDAH MULUT & MAKSILOFSIAL') + section('Favourites', 'Your pinned applications', fav, 'View all', 'favourites', 'No favourites yet') + section('Recently Used', 'Quickly resume where you left off', recent, 'View history', 'recent', 'No recently used apps') + `<div class="summary-pills"><span class="summary-pill">${state.apps.length} applications available</span><span class="summary-pill">${categories().length} categories</span><button class="text-link" data-view="all">Browse full directory →</button></div>`;
             }
             function renderAll() {
                 const groups = categories();
